@@ -1,10 +1,10 @@
-using System;
 using UnityEngine;
 
 public class Salter : MonoBehaviour, IEtkilesilebilir
 {
+    public YanginKapisi kapi;
+
     public Transform etkilesimNoktasi;
-    public event Action SalterCekildi; // Kapýya haber gönderecek olay
     public bool kullanildiMi = false;
 
     public Transform EtkilesimNoktasi
@@ -14,18 +14,18 @@ public class Salter : MonoBehaviour, IEtkilesilebilir
 
     public void EtkilesimeGir()
     {
-        // Eðer zaten kullanýldýysa hiçbir þey yapma
         if (kullanildiMi == true)
         {
             return;
         }
 
         kullanildiMi = true;
-        transform.Rotate(0f, 0f, 45f); 
+        transform.Rotate(0f, 0f, 45f);
 
-        if (SalterCekildi != null)
+        if (kapi != null)
         {
-            SalterCekildi();
+            kapi.KapiyiAc();
+            Debug.Log("Þalter çekildi, kapýya haber verildi.");
         }
     }
 }
