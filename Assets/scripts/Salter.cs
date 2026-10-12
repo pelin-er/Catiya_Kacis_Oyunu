@@ -7,7 +7,6 @@ public class Salter : MonoBehaviour, IEtkilesilebilir
     public event Action SalterCekildi; // Kapýya haber gönderecek olay
     public bool kullanildiMi = false;
 
-    // Arayüzdeki (Interface) kuralý uyguluyoruz
     public Transform EtkilesimNoktasi
     {
         get { return etkilesimNoktasi; }
@@ -22,9 +21,8 @@ public class Salter : MonoBehaviour, IEtkilesilebilir
         }
 
         kullanildiMi = true;
-        transform.Rotate(0f, 0f, 45f); // Þalterin eðilmesi (görsel)
+        transform.Rotate(0f, 0f, 45f); 
 
-        // Kapýya haber uçur (Eðer kapý bunu dinliyorsa)
         if (SalterCekildi != null)
         {
             SalterCekildi();

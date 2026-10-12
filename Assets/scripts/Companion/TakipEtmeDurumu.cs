@@ -25,6 +25,6 @@ public class TakipEtmeDurumu : IDurum
 
     public void Cikis(YardimciKarakter karakter)
     {
-        // Çýkýþta yapýlacak bir þey yok
+        
     }
 }

@@ -11,7 +11,7 @@ public class YardimciKarakter : MonoBehaviour
     {
         ajan = GetComponent<NavMeshAgent>();
 
-        // Oyun baþlayýnca ilk durum takip etme olsun
+        // Oyun baþlayýnca ilk durum takip etme
         suAnkiDurum = new TakipEtmeDurumu();
         suAnkiDurum.Giris(this);
     }

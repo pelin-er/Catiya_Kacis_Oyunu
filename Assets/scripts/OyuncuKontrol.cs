@@ -19,19 +19,16 @@ public class OyuncuKontrol : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
-        // Kamera bakýþ açýsýna göre hareket yönünü hesapla
         Vector3 ileri = Vector3.ProjectOnPlane(kamera.forward, Vector3.up).normalized;
         Vector3 sag = Vector3.ProjectOnPlane(kamera.right, Vector3.up).normalized;
 
         Vector3 hareket = (ileri * z) + (sag * x);
 
-        // Çapraz gidiþlerde hýzý dengele
         if (hareket.magnitude > 1f)
         {
             hareket.Normalize();
         }
 
-        // Yerçekimi ayarý (Kýsa yazým olan isGrounded ? -1 : ... yerine if kullandýk)
         if (karakterKontrolcu.isGrounded == true)
         {
             dikeyHiz = -1f;
@@ -41,11 +38,9 @@ public class OyuncuKontrol : MonoBehaviour
             dikeyHiz = dikeyHiz + (Physics.gravity.y * Time.deltaTime);
         }
 
-        // Karakteri hareket ettir
         Vector3 sonHareket = (hareket * hiz) + (Vector3.up * dikeyHiz);
         karakterKontrolcu.Move(sonHareket * Time.deltaTime);
 
-        // Karakterin gittiði yöne dönmesi
         if (hareket.magnitude > 0.01f)
         {
             Quaternion donusHedefi = Quaternion.LookRotation(hareket);
