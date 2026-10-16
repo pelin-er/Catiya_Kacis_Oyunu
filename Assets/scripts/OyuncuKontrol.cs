@@ -5,9 +5,10 @@ public class OyuncuKontrol : MonoBehaviour
 {
     public float hiz = 5f;
     public Transform kamera;
-
     public CharacterController karakterKontrolcu;
     public float dikeyHiz;
+
+    public Animator animator;
 
     void Start()
     {
@@ -27,6 +28,11 @@ public class OyuncuKontrol : MonoBehaviour
         if (hareket.magnitude > 1f)
         {
             hareket.Normalize();
+        }
+
+        if (animator != null)
+        {
+            animator.SetFloat("Hiz", hareket.magnitude);
         }
 
         if (karakterKontrolcu.isGrounded == true)
