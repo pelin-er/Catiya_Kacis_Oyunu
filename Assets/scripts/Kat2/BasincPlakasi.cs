@@ -24,13 +24,6 @@ public class BasincPlakasi : MonoBehaviour, IEtkilesilebilir
         eskiRenk = plakaRenderer.material.color;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            EtkilesimeGir();
-        }
-    }
 
     public void EtkilesimeGir()
     {
