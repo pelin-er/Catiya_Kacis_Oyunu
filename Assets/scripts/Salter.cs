@@ -12,6 +12,11 @@ public class Salter : MonoBehaviour, IEtkilesilebilir
         get { return etkilesimNoktasi; }
     }
 
+    public bool Kullanilabilir
+    {
+        get { return kullanildiMi == false; }
+    }
+
     public void EtkilesimeGir()
     {
         if (kullanildiMi == true)

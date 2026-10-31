@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class HedefeGitmeDurumu : IDurum
 {
-    public float yaklasmaSiniri = 0.5f;
+    public float varisMesafesi = 0.8f;  
     public IEtkilesilebilir hedef;
     public float zamanAsimi = 20f;
 
@@ -26,6 +26,13 @@ public class HedefeGitmeDurumu : IDurum
 
     public void Guncelle(YardimciKarakter karakter)
     {
+       
+        if (karakter.TehlikeVarMi() == true)
+        {
+            karakter.DurumDegistir(new BeklemeDurumu(this));
+            return;
+        }
+
         zamanAsimi = zamanAsimi - Time.deltaTime;
 
         if (zamanAsimi <= 0f)
@@ -40,12 +47,19 @@ public class HedefeGitmeDurumu : IDurum
             return;
         }
 
-        if (karakter.ajan.pathPending == false)
+        Vector3 fark = hedef.EtkilesimNoktasi.position - karakter.transform.position;
+        fark.y = 0f;
+        float mesafe = fark.magnitude;
+
+        if (mesafe <= varisMesafesi)
         {
-            if (karakter.ajan.remainingDistance <= karakter.ajan.stoppingDistance + yaklasmaSiniri)
-            {
-                karakter.DurumDegistir(new EtkilesimDurumu(hedef));
-            }
+            karakter.DurumDegistir(new EtkilesimDurumu(hedef));
+            return;
+        }
+
+        if (karakter.ajan.pathPending == false && karakter.ajan.hasPath == false)
+        {
+            karakter.ajan.SetDestination(hedef.EtkilesimNoktasi.position);
         }
     }
 

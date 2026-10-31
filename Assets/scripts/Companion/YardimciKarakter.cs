@@ -6,25 +6,30 @@ public class YardimciKarakter : MonoBehaviour
     public Transform oyuncu;
     public NavMeshAgent ajan;
     public IDurum suAnkiDurum;
+    public float algilamaYaricapi = 40f;
+
+    EngelAlgilayici sensor;
+    HedefSecici hedefSecici;
 
     void Start()
     {
         ajan = GetComponent<NavMeshAgent>();
+        sensor = GetComponent<EngelAlgilayici>();
 
-        // Oyun baþlayýnca ilk durum takip etme
+        hedefSecici = new HedefSecici();
+        hedefSecici.algilamaYaricapi = algilamaYaricapi;
+
         suAnkiDurum = new TakipEtmeDurumu();
         suAnkiDurum.Giris(this);
     }
 
     void Update()
     {
-        // Ajan navmesh üzerinde deðilse hiçbir þey yapma
         if (ajan.isOnNavMesh == false)
         {
             return;
         }
 
-        // Eðer bir durum atanmýþsa onu sürekli güncelle
         if (suAnkiDurum != null)
         {
             suAnkiDurum.Guncelle(this);
@@ -33,20 +38,44 @@ public class YardimciKarakter : MonoBehaviour
 
     public void DurumDegistir(IDurum yeniDurum)
     {
-        // Eski durumdan çýk
         if (suAnkiDurum != null)
         {
             suAnkiDurum.Cikis(this);
         }
 
-        // Yeni duruma geç
         suAnkiDurum = yeniDurum;
-        Debug.Log("Yeni duruma geçildi.");
+        Debug.Log("Yeni durum: " + yeniDurum.GetType().Name);
         suAnkiDurum.Giris(this);
     }
 
     public void EtkilesimEmriVer(IEtkilesilebilir hedef)
     {
         DurumDegistir(new HedefeGitmeDurumu(hedef));
+    }
+
+    public void GenelEmirVer()
+    {
+        IEtkilesilebilir hedef = hedefSecici.EnIyiHedefiSec(this);
+
+        if (hedef == null)
+        {
+            Debug.Log("Cozulecek engel bulamadim");
+            return;
+        }
+
+        MonoBehaviour hedefParcasi = hedef as MonoBehaviour;
+        Debug.Log("Hedef secildi: " + hedefParcasi.name);
+
+        DurumDegistir(new HedefeGitmeDurumu(hedef));
+    }
+
+    public bool TehlikeVarMi()
+    {
+        if (sensor == null)
+        {
+            return false;
+        }
+
+        return sensor.YolEngelliMi();
     }
 }

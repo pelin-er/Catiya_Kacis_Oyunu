@@ -2,29 +2,50 @@ using UnityEngine;
 
 public class TakipEtmeDurumu : IDurum
 {
-    public float takipMesafesi = 2.5f;
+    public float baslamaMesafesi = 3f;     
+    public float durmaMesafesi = 1.8f;   
+    bool hareketEdiyor = false;
 
     public void Giris(YardimciKarakter karakter)
     {
         karakter.ajan.isStopped = false;
+        hareketEdiyor = false;
     }
 
     public void Guncelle(YardimciKarakter karakter)
     {
+        if (karakter.oyuncu == null)
+        {
+            return;
+        }
+
         float mesafe = Vector3.Distance(karakter.transform.position, karakter.oyuncu.position);
 
-        if (mesafe > takipMesafesi)
+        if (hareketEdiyor == false && mesafe > baslamaMesafesi)
         {
-            karakter.ajan.SetDestination(karakter.oyuncu.position);
+            hareketEdiyor = true;
         }
-        else
+        else if (hareketEdiyor == true && mesafe < durmaMesafesi)
         {
-            karakter.ajan.ResetPath(); // Dur
+            hareketEdiyor = false;
+            karakter.ajan.ResetPath();
         }
+
+        if (hareketEdiyor == false)
+        {
+            return;
+        }
+
+        if (karakter.TehlikeVarMi() == true)
+        {
+            karakter.DurumDegistir(new BeklemeDurumu(this));
+            return;
+        }
+
+        karakter.ajan.SetDestination(karakter.oyuncu.position);
     }
 
     public void Cikis(YardimciKarakter karakter)
     {
-        
     }
 }
