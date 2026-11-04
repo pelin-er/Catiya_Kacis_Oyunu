@@ -33,4 +33,13 @@ public class Salter : MonoBehaviour, IEtkilesilebilir
             Debug.Log("Þalter çekildi, kapýya haber verildi.");
         }
     }
+    public void Sifirla()
+    {
+        if (kullanildiMi == true)
+        {
+            transform.Rotate(0f, 0f, -45f);
+        }
+
+        kullanildiMi = false;
+    }
 }

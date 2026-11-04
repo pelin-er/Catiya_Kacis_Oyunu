@@ -8,7 +8,7 @@ public class OyuncuKontrol : MonoBehaviour
     public CharacterController karakterKontrolcu;
     public float dikeyHiz;
 
-    public Animator animator;
+    public Animator animator; 
 
     void Start()
     {

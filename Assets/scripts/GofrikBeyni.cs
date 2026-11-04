@@ -32,7 +32,7 @@ public class GofrikBeyni : MonoBehaviour
         else
         {
             ajan.SetDestination(suAnkiHedef.EtkilesimNoktasi.position);
-            if (!ajan.pathPending && ajan.remainingDistance < 0.6f)
+            if (!ajan.pathPending && ajan.remainingDistance < 0.8f)
             {
                 suAnkiHedef.EtkilesimeGir();
                 suAnkiHedef = null; 

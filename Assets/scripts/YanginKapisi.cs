@@ -28,4 +28,13 @@ public class YanginKapisi : MonoBehaviour
             }
         }
     }
+
+    public void Sifirla()
+    {
+        kapiAcikMi = false;
+
+        Vector3 yer = transform.position;
+        yer.y = baslangicY;
+        transform.position = yer;
+    }
 }
