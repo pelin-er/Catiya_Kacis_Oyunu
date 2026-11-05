@@ -3,13 +3,23 @@ using UnityEngine;
 public class MuhafizNPC : MonoBehaviour
 {
     public OllamaBaglantisi baglanti;
-    public YanginKapisi catiKapisi; 
+    public CikisKapisi catiKapisi;
+
+    async void Start()
+    {
+        MuhafizCevap yanit = await baglanti.MuhafizlaKonus(
+            "Çatýya çýkmama izin verir misin?"
+        );
+
+        Debug.Log("TEST - Muhafýz: " + yanit.mesaj);
+        Debug.Log("TEST - Aksiyon: " + yanit.aksiyon);
+    }
 
     public async void SohbetEt(string oyuncuSozu)
     {
         Debug.Log("Muhafýz düþünüyor...");
 
-        // AI'dan cevap bekleniyor
+        
         MuhafizCevap yanit = await baglanti.MuhafizlaKonus(oyuncuSozu);
 
         Debug.Log("Muhafýz: " + yanit.mesaj);
