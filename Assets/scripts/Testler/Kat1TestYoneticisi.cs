@@ -8,7 +8,7 @@ public class Kat1TestYoneticisi : MonoBehaviour
     public Transform[] baslangicNoktalari;
 
     public int denemeSayisi = 20;
-    public float zamanAsimi = 60f;
+    public float zamanAsimi = 40f;
 
     int durum = 0;
     int denemeNo = 0;

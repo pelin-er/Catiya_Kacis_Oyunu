@@ -10,7 +10,7 @@ public class GecisTestYoneticisi : MonoBehaviour
     public Transform[] baslangicNoktalari;  
 
     public int denemeSayisi = 10;
-    public float zamanAsimi = 60f;          
+    public float zamanAsimi = 40f;          
     public float gecisMesafesi = 3f;
 
     int durum = 0;      // 0 = kapalý, 1 = emir verilecek, 2 = bekliyor, 3 = mola
@@ -145,6 +145,7 @@ public class GecisTestYoneticisi : MonoBehaviour
         plaka.Sifirla();
 
         int secilen = Random.Range(0, baslangicNoktalari.Length);
+        Debug.Log("[Gecis Test] deneme " + denemeNo + " baslangic: " + baslangicNoktalari[secilen].name);
         yardimci.ajan.Warp(baslangicNoktalari[secilen].position);
         yardimci.DurumDegistir(new TakipEtmeDurumu());
 

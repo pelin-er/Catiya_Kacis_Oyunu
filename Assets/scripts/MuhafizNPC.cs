@@ -12,7 +12,7 @@ public class MuhafizNPC : MonoBehaviour
     public TMP_Text cevapYazisi;
     public TMP_Text durumYazisi;
 
-    public float konusmaMesafesi = 3f;
+    public float konusmaMesafesi = 8f;
     public int enFazlaHarf = 200;
 
     Transform oyuncu;
@@ -38,10 +38,11 @@ public class MuhafizNPC : MonoBehaviour
     {
         if (oyuncu == null)
         {
+            Debug.LogError("DÝKKAT: Oyuncu bulunamadý! Tag'i kontrol et!");
             return;
         }
 
-        // Panel kapalýyken: yakýnsa ipucu göster, F'e basýnca aç
+        // Panel kapalýyken: yakýnsa ipucu göster, F'ye basýnca aç
         if (panelAcikMi == false)
         {
             float mesafe = Vector3.Distance(transform.position, oyuncu.position);
@@ -49,9 +50,19 @@ public class MuhafizNPC : MonoBehaviour
 
             ipucu.SetActive(yakinMi);
 
-            if (yakinMi == true && Input.GetKeyDown(KeyCode.F))
+            // F'ye basýldýðýný anlamak için test:
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                PaneliAc();
+                Debug.Log("F tuþuna basýldý! Mesafe: " + mesafe + " | Gerekli Mesafe: " + konusmaMesafesi);
+
+                if (yakinMi == true)
+                {
+                    PaneliAc();
+                }
+                else
+                {
+                    Debug.LogWarning("F'ye bastýn ama Muhafýza yeterince yakýn deðilsin!");
+                }
             }
 
             return;
@@ -148,27 +159,34 @@ public class MuhafizNPC : MonoBehaviour
         cevapYazisi.text = "Muhafýz: " + yanit.mesaj;
         Debug.Log("Muhafýz: " + yanit.mesaj + " | aksiyon: " + yanit.aksiyon);
 
-        AksiyonuUygula(yanit.aksiyon);
+        AksiyonuUygula(yanit.aksiyon, yanit.mesaj);
         KutuyuAktifEt();
     }
 
-    // Sadece bildiðimiz aksiyon uygulanýr, gerisi yok sayýlýr
-    void AksiyonuUygula(string aksiyon)
+  
+    void AksiyonuUygula(string aksiyon, string mesaj)
     {
-        if (aksiyon == null)
+        bool acmaliMi = false;
+
+        if (!string.IsNullOrEmpty(aksiyon) && aksiyon.Trim().ToLower().Contains("kapiyi_ac"))
         {
-            return;
+            acmaliMi = true;
         }
 
-        aksiyon = aksiyon.Trim().ToLower();
+     
+        if (!string.IsNullOrEmpty(mesaj) && mesaj.Trim().ToLower().Contains("kapiyi_ac"))
+        {
+            acmaliMi = true;
+        }
 
-        if (aksiyon == "kapiyi_ac")
+        if (acmaliMi)
         {
             if (kapiAcildiMi == false)
             {
                 kapiAcildiMi = true;
                 catiKapisi.KapiyiAc();
                 durumYazisi.text = "Kapý açýldý!";
+                Debug.Log("KAPI BAÞARIYLA AÇILDI!");
             }
         }
     }

@@ -8,7 +8,7 @@ public class MuhafizCevap
 {
     public string mesaj;
     public string aksiyon;
-    public bool hataVarMi = false;    
+    public bool hataVarMi = false;
 }
 
 // Ollama'nýn dýþ cevabý
@@ -18,7 +18,14 @@ public class OllamaHamCevap
     public string response;
 }
 
-// Ollama'ya gönderilen paket 
+[Serializable]
+public class OllamaSecenekler
+{
+    public float temperature = 0.3f;
+    public int num_predict = 120;
+}
+
+// Ollama'ya gönderilen paket
 [Serializable]
 public class OllamaIstek
 {
@@ -27,25 +34,36 @@ public class OllamaIstek
     public string system;
     public bool stream;
     public string format;
+    public OllamaSecenekler options;
 }
 
 public class OllamaBaglantisi : MonoBehaviour
 {
     public string adres = "http://127.0.0.1:11434/api/generate";
-    public string modelAdi = "llama3.2:1b";
-    public int zamanAsimi = 60;      
+    public string modelAdi = "llama3.2";   
+    public int zamanAsimi = 90;
 
-    public bool mesgulMu = false;      
+    public bool mesgulMu = false;
 
-    string gecmis = "";                 // önceki konuþma, Muhafýz hatýrlasýn
+    string gecmis = "";                
 
     string talimat =
         "Sen gizemli ve ciddi bir Muhafýzsýn. Çatý kapýsýný koruyorsun. " +
         "Oyuncu seni ikna edici ve mantýklý bir þekilde izin vermeye ikna ederse aksiyon olarak kapiyi_ac yaz. " +
         "Sadece rica etmek, tehdit etmek, para teklif etmek ya da konu dýþý konuþmak seni ikna etmez, bu durumda aksiyon olarak yok yaz. " +
+        "Oyuncunun cümlesini asla tekrar etme. " +
         "Her zaman Türkçe konuþ, cevabýn en fazla 2 cümle olsun. " +
         "Cevabýný SADECE þu formatta JSON olarak ver: " +
-        "{\"mesaj\":\"Muhafýzýn cevabý\", \"aksiyon\":\"kapiyi_ac veya yok\"}";
+        "{\"mesaj\":\"Muhafýzýn cevabý\", \"aksiyon\":\"kapiyi_ac veya yok\"}\n" +
+        "Örnekler:\n" +
+        "Oyuncu: Merhaba\n" +
+        "{\"mesaj\":\"Burasý yasak bölge. Ne istiyorsun?\",\"aksiyon\":\"yok\"}\n" +
+        "Oyuncu: Kapýyý aç yoksa döverim\n" +
+        "{\"mesaj\":\"Tehditler beni korkutmaz. Kapý açýlmayacak.\",\"aksiyon\":\"yok\"}\n" +
+        "Oyuncu: Sana para vereyim, kapýyý aç\n" +
+        "{\"mesaj\":\"Para beni satýn alamaz. Kapý kapalý kalacak.\",\"aksiyon\":\"yok\"}\n" +
+        "Oyuncu: Binada yangýn var, çocuklar mahsur kaldý, itfaiye çatýda bekliyor!\n" +
+        "{\"mesaj\":\"Bu ciddi bir durum. Hemen geç.\",\"aksiyon\":\"kapiyi_ac\"}";
 
     public async Task<MuhafizCevap> MuhafizlaKonus(string oyuncuMesaji)
     {
@@ -57,6 +75,7 @@ public class OllamaBaglantisi : MonoBehaviour
         paket.prompt = gecmis + "Oyuncu: " + oyuncuMesaji + "\nMuhafýz:";
         paket.stream = false;
         paket.format = "json";
+        paket.options = new OllamaSecenekler();
 
         string veri = JsonUtility.ToJson(paket);
 
