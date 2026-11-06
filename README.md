@@ -299,23 +299,29 @@ Kahraman tarafında da benzer dayanıklılık vardır: ajan NavMesh üzerinde de
 
 **NavMesh (Kat 1 ve Kat 2, üstten görünüm).** Mavi alan, kahramanın yürüyebildiği yüzeydir. Her iki katta sütunlar arasındaki dar geçitler (şalter ve plaka kanalları) kahramanın girebileceği şekilde pişirilmiştir.
 
+[![NavMesh, üstten görünüm](docs/img/navmesh.png)](docs/img/navmesh.png)
+
 **Kat 1: şalter çekildi, yangın kapısı açıldı.** Kahraman dar havalandırma deliğine girip şalteri çekmiştir (şalter yeşil), yangın kapısı yukarı kalkmıştır.
+
+[![Kat 1: şalter çekildi](docs/img/kat1_salter.png)](docs/img/kat1_salter.png)
 
 **Kat 2: sensör ışınları.** Kahraman lazerin önündedir. Sensörün ışınları (kırmızı) aktif lazere çarpar ve kahraman bekleme durumuna geçer.
 
+[![Kat 2: sensör ışınları](docs/img/kat2_sensor_isinlari.png)](docs/img/kat2_sensor_isinlari.png)
+
 | Plakaya basılmadan önce | Plakaya basıldıktan sonra |
 | --- | --- |
-|  |  |
+| [![Plakaya basılmadan önce](docs/img/kat2_plaka_once.png)](docs/img/kat2_plaka_once.png) | [![Plakaya basıldıktan sonra](docs/img/kat2_plaka_sonra.png)](docs/img/kat2_plaka_sonra.png) |
 | Plaka kırmızı, çıkış kapısı kapalı | Plaka yeşile döndü, çıkış kapısı açıldı |
 
 **Muhafız bölümü.**
 
 | Görsel | Açıklama |
 | --- | --- |
-| ![Diyalog paneli](docs/img/muhafiz_diyalog_paneli.png) | Oyuncu Muhafız'a yaklaşıp F'ye basınca diyalog paneli ve yazı kutusu açılır. Konsolda `F tuşuna basıldı! Mesafe: ... \| Gerekli Mesafe: 25` kaydı görünür |
-| ![Kapı açılmadı](docs/img/muhafiz_izin_vermedi.png) | Oyuncu "merhaba nasılsın" yazınca Muhafız izin vermez. `aksiyon` boş döner, kapı açılmaz (konsolda `KAPI BAŞARIYLA AÇILDI!` kaydı yok) |
-| ![Kapı açıldı](docs/img/muhafiz_kapi_acildi.png) | Model `kapiyi_ac` eylemini döndüğünde kapı açılır. Konsolda `KAPI BAŞARIYLA AÇILDI!` yazar |
-| ![Bitiş paneli](docs/img/muhafiz_binadan_cikis.png) | Oyuncu kapıdan geçip `BitisAlani`'na girince "Tebrikler! Çatıya ulaştın." bitiş paneli açılır |
+| [![Diyalog paneli](docs/img/muhafiz_diyalog_paneli.png)](docs/img/muhafiz_diyalog_paneli.png) | Oyuncu Muhafız'a yaklaşıp F'ye basınca diyalog paneli ve yazı kutusu açılır. Konsolda `F tuşuna basıldı! Mesafe: ... \| Gerekli Mesafe: 25` kaydı görünür |
+| [![Kapı açılmadı](docs/img/muhafiz_izin_vermedi.png)](docs/img/muhafiz_izin_vermedi.png) | Oyuncu "merhaba nasılsın" yazınca Muhafız izin vermez. `aksiyon` boş döner, kapı açılmaz (konsolda `KAPI BAŞARIYLA AÇILDI!` kaydı yok) |
+| [![Kapı açıldı](docs/img/muhafiz_kapi_acildi.png)](docs/img/muhafiz_kapi_acildi.png) | Model `kapiyi_ac` eylemini döndüğünde kapı açılır. Konsolda `KAPI BAŞARIYLA AÇILDI!` yazar |
+| [![Bitiş paneli](docs/img/muhafiz_binadan_cikis.png)](docs/img/muhafiz_binadan_cikis.png) | Oyuncu kapıdan geçip `BitisAlani`'na girince "Tebrikler! Çatıya ulaştın." bitiş paneli açılır |
 
 ### 5.2 Otonom kahraman testleri
 
@@ -386,7 +392,7 @@ Güncellenmiş promptla bu sorunlar azaldı: yarı İngilizce cümleler görülm
 
 | Ollama kapalı | Konuşma sırasında Ollama kapatıldı |
 | --- | --- |
-| ![Ollama kapalı](docs/img/hata_ollama_kapali.png) | ![Konuşma sırasında Ollama kapatıldı](docs/img/hata_konusma_sirasinda_ollama_kapali.png) |
+| [![Ollama kapalı](docs/img/hata_ollama_kapali.png)](docs/img/hata_ollama_kapali.png) | [![Konuşma sırasında Ollama kapatıldı](docs/img/hata_konusma_sirasinda_ollama_kapali.png)](docs/img/hata_konusma_sirasinda_ollama_kapali.png) |
 
 ## 6. Sonuç ve tartışma
 
