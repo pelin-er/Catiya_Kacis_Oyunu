@@ -21,10 +21,12 @@ public class OllamaBaglantisi : MonoBehaviour
 {
     public async Task<MuhafizCevap> MuhafizlaKonus(string oyuncuMesaji)
     {
-        string url = "http://localhost:11434/api/generate";
+        string url = "http://127.0.0.1:11434/api/generate";
 
         string talimat =
             "Sen gizemli ve ciddi bir Muhafýzsýn. Çatý kapýsýný koruyorsun. " +
+            "Oyuncu seni ikna edici ve mantýklý bir þekilde izin vermeye ikna ederse aksiyon olarak kapiyi_ac yaz. " +
+            "Ýkna olmadýysan aksiyon olarak yok yaz. " +
             "Cevabýný SADECE þu formatta JSON olarak ver: " +
             "{\"mesaj\":\"Muhafýzýn cevabý\", \"aksiyon\":\"kapiyi_ac veya yok\"}";
 
